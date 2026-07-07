@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Meri Jaan! ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #ffe6e6;
+            color: #333;
+            text-align: center;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* --- FLOATING HEARTS BACKGROUND --- */
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            bottom: -20px;
+            color: rgba(255, 77, 109, 0.4);
+            font-size: 1.2rem;
+            animation: floatUp 6s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-105vh) translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* --- PAGES LAYOUT --- */
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: all 0.5s ease-in-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #ff4d6d;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            padding: 0 10px;
+        }
+
+        /* Buttons Container */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+            margin-bottom: 40px;
+            width: 100%;
+        }
+
+        .btn {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background: #ff758f;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.4);
+            font-size: 1rem;
+            padding: 10px 25px;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        /* --- FIXED GALLERY CONTAINER (No Flat Strips) --- */
+        .gallery-container {
+            max-width: 900px;
+            width: 100%;
+            margin: 10px auto;
+            column-count: 2; /* Mobile par side-by-side do columns dikhenge jo best hain */
+            column-gap: 15px;
+            padding: 10px;
+        }
+
+        @media (min-width: 600px) {
+            .gallery-container {
+                column-count: 3; /* Laptop/Tablet par 3 columns */
+            }
+        }
+
+        .photo-slot {
+            background: white;
+            padding: 8px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 15px; /* Spacing between rows */
+            break-inside: avoid; /* Prevent split images */
+            border: 2px dashed #ffb3c1;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .photo-slot img {
+            width: 100%;
+            height: auto; /* Image ka official/original aspect ratio barkarar rahega */
+            display: block;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .photo-placeholder {
+            color: #ff758f;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 20px 0;
+            display: block;
+        }
+
+        /* --- VIDEO PORTION STYLES --- */
+        .video-container {
+            max-width: 800px;
+            width: 95%;
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border: 2px solid #fff0f2;
+        }
+
+        video {
+            width: 100%;
+            max-height: 60vh;
+            border-radius: 12px;
+            display: block;
+            object-fit: contain;
+        }
+
+        .video-controls {
+            margin-top: 20px;
+        }
+
+        .video-btn {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(255, 77, 109, 0.2);
+            transition: all 0.2s;
+        }
+
+        .video-btn:hover {
+            background: #ff758f;
+            transform: translateY(-2px);
+        }
+
+        /* --- LETTER BOX --- */
+        .letter-box {
+            background: white;
+            max-width: 600px;
+            width: 90%;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #ffe6e6;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            text-align: left;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .letter-box::before {
+            content: '❤️';
+            font-size: 2rem;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .letter-text {
+            white-space: pre-line;
+            color: #4a4a4a;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Layer for Floating Hearts -->
+    <div class="heart-bg" id="heartBg"></div>
+
+    <!-- PAGE 1: Welcome -->
+    <div id="page1" class="page">
+        <h1>MERI JAAN KE LIYE EK CHOTA SA SURPRISE ❤️</h1>
+        <button class="btn" onclick="showPage('page2')">Surprise Button</button>
+    </div>
+
+    <!-- PAGE 2: Photos Gallery -->
+    <div id="page2" class="page hidden">
+        <h1>Our Memories ✨</h1>
+        
+        <div class="gallery-container">
+            <div class="photo-slot"><img src="/IMG_5059.png" alt="Memory 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="photo-placeholder" style="display:none;">Pic 1</span></div>
+            <div class="photo-slot"><img src="/IMG_5058.png" alt="Memory 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="photo-placeholder" style="display:none;">Pic 2</span></div>
+            <div class="photo-slot"><img src="/IMG_5060.png" alt="Memory 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="photo-placeholder" style="display:none;">Pic 3</span></div>
+            <div class="photo-slot"><img src="/IMG_5074.png" alt="Memory 4" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="photo-placeholder" style="display:none;">Pic 4</span></div>
+            <div class="photo-slot"><img src="/IMG_5063.png" alt="Memory 5" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="photo-placeholder" style="display:none;">Pic 5</span></div>
+            <div class="photo-slot"><img src="/IMG_5064.png" alt="Memory 6" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="photo-placeholder" style="display:none;">Pic 6</span></div>
+            <div class="photo-slot"><img src="/IMG_5065.png" alt="Memory 7" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="photo-placeholder" style="display:none;">Pic 7</span></div>
+            <div class="photo-slot"><img src="/IMG_5066.png" alt="Memory 8" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="photo-placeholder" style="display:none;">Pic 8</span></div>
+            <div class="photo-slot"><img src="/IMG_5067.png" alt="Memory 9" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="photo-placeholder" style="display:none;">Pic 9</span></div>
+            <div class="photo-slot"><img src="/IMG_5068.png" alt="Memory 10" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="photo-placeholder" style="display:none;">Pic 10</span></div>
+            <div class="photo-slot"><img src="/IMG_5069.png" alt="Memory 11" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="photo-placeholder" style="display:none;">Pic 11</span></div>
+            <div class="photo-slot"><img src="/IMG_5070.png" alt="Memory 12" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="photo-placeholder" style="display:none;">Pic 12</span></div>
+            <div class="photo-slot"><img src="/IMG_5071.png" alt="Memory 13" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="photo-placeholder" style="display:none;">Pic 13</span></div>
+            <div class="photo-slot"><img src="/IMG_5072.png" alt="Memory 14" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="photo-placeholder" style="display:none;">Pic 14</span></div>
+            <div class="photo-slot"><img src="/IMG_5073.png" alt="Memory 15" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="photo-placeholder" style="display:none;">Pic 15</span></div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn" onclick="showPage('page2_5')">Next ✨</button>
+            <button class="btn btn-secondary" onclick="showPage('page1')">⬅️ Back</button>
+        </div>
+    </div>
+
+    <!-- PAGE 2.5: Video Portion -->
+    <div id="page2_5" class="page hidden">
+        <h1>AP SUB SE ACHI JAAN HO ❤️</h1>
+        
+        <div class="video-container">
+            <video id="myVideo" playsinline>
+                <source src="/copy_A4BC85D3-352D-4848-8488-61544AC4F424.mov" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            
+            <div class="video-controls">
+                <button class="video-btn" id="playPauseBtn" onclick="toggleVideo()">Play ▶️</button>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn" onclick="showPage('page3')">Letter for you 💌</button>
+            <button class="btn btn-secondary" onclick="showPage('page2')">⬅️ Back</button>
+        </div>
+    </div>
+
+    <!-- PAGE 3: Final Letter -->
+    <div id="page3" class="page hidden">
+        <div class="letter-box">
+            <div class="letter-text">
+                  "HAPPIEST BIRTHDAY TO THE GIRL WHO OWNS MY HEART, MY WAHIBA, MY EVERYTHING 💖
+aaj tumhare is special din par main tumhein batana chahta hoon ke tum mere liye kya ho. Tum kehti ho na ke tum headache banti ho? Par sach yeh hai ke tum meri zindagi ka sukoon ho 🥰 Tumhare bina ek din toh kya, ek pal guzarne ka sochna bhi mere liye namumkin hai bas main argument na ho isliye kabhi baat nhin karta aur phir dekhta hun ke tum mere paas chali ati ho hamesha aur yer yeh saari argument sorf msgs aur calls tak hi rehti hain jab hum milte hain to sub khatam hojata hai aur phir sirf ek dusre ko admire ker rahe hote hain 
+Tumne mujhe badal diya hai, mujhe ek behtar insan banaya hai. Tum kehti ho ke tum mere nam se jani jana chahti ho, aur main khuda se dua karta hoon ke hamari kahani ka end bilkul waisa hi ho jaisa tumne apne script mein socha hai meri zindagi tumhare naam ke sath hi mukammal ho Ameen 💝
+Arabic mein agar tum mere liye Tu'burni ho, toh tum meri poori kainat ho wahiba khuda ki qasam tumhare ilawa kisi dusri larki ka khayal tak nhin ata yer Tumhare sath khali pockets bhi bhari hui lagti hain, aur tumhare bina sab kuch hote hue bhi sab adhura hai yer jo bhi mushkilat chal rahin hain wahiba lkn Quran ki qasam meri zindagi goal tumhe pana hi hai. Tumne mere har tute hisse ko sambhala hai, aur main vada karta hoon ke tumhare is bharose ko kabhi tutne nahi doonga. Haan tum kabhi kabhi bohot irritating ho jati ho gussa bhi bohot karti ho, par kya karoon? Is dil ko tumhare is gusse se bhi ishq hai yaad hai abhi parso main ghusse main tha yer bohot hamari baat bhi sahi nhi chal rahi thi lkn pata nhin khudse tumhare liye piyar agaya idk kia hai yer yeh warna mere jese insan ka ghussa ese khatam nhin hojata Tumne pucha tha na ke 'What will I lose when I have you?'Sach toh yeh hai ke tumhein pa kar maine apna dil ko kho diya hai, par main is loss se bohot khush hoon 🥰
+Tumhare mood swings ko handle karna koi asan kaam nahi hai par tumhare is 'man with guts' ke paas tumhein jhelne ka aur tumse be-inteha mohabbat karne ka life-time licence hai 🤩 Tumne jo mere liye pure intentions aur sath nibhane ka vada kiya hai usne mujhe tumhara aur deewana bana diya hai
+Main vada karta hoon ke tumhare low days par main tumhara sahara banoonga, tumhare gusse ke aage hamesha muskuraunga jese kabhi hum sath hote hain aur apko gussa ata hai meri sach mn hassi nikal jati hai qk samne woh chez pata nhin cute lag rahi hoti hai lkn wohi chez msgs aur calls per nhin lagti yer aur mainy parha tha jitni gandi arguments msgs aur calls per hoti hai utni samne nhin hoti aur same wesa hi hamare satg bhi hota hai lkn promise main tumhein hamesha be-panah pyarr doonga Tumne khuda se dua ki hai na ke mera naam tumhare naam ke baad likha jaye? INSHALLAH, woh din door nahi jab tum har jagah mere naam se jani jaogi 💍
+May Allah bless you with endless happiness, success, and glowing health. Tum jaisi ho, mere liye perfect ho, isliye badalne ki bilkul zaroorat nahi hai (thoda gussa kam karlo toh bonus hai) 😋. Have the most amazing birthday, my love! Millions of hugs and kisses to you 💖💖💖💖💖🫂🫂🫂😘😘😘😘🥰🥰🥰🥰🥰🥰🤩🤩🤩🤩🤩 
+
+
+                            You forever 
+(SAINU 😋)
+            </div>
+        </div>
+        
+        <button class="btn btn-secondary" onclick="showPage('page2_5')">⬅️ Back</button>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            document.getElementById('page1').classList.add('hidden');
+            document.getElementById('page2').classList.add('hidden');
+            document.getElementById('page2_5').classList.add('hidden');
+            document.getElementById('page3').classList.add('hidden');
+
+            var video = document.getElementById('myVideo');
+            if(pageId !== 'page2_5') {
+                video.pause();
+                document.getElementById('playPauseBtn').innerText = "Play ▶️";
+            }
+
+            document.getElementById(pageId).classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function toggleVideo() {
+            var video = document.getElementById('myVideo');
+            var btn = document.getElementById('playPauseBtn');
+            
+            if (video.paused) {
+                video.play().catch(function(error) {
+                    console.log("Play interrupted: ", error);
+                });
+                btn.innerText = "Pause ⏸️";
+            } else {
+                video.pause();
+                btn.innerText = "Play ▶️";
+            }
+        }
+
+        function createHearts() {
+            const container = document.getElementById('heartBg');
+            if (container.childElementCount < 25) { 
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerText = '❤️';
+                
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                heart.style.fontSize = (Math.random() * 15 + 10) + 'px';
+                
+                container.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 7000);
+            }
+        }
+
+        setInterval(createHearts, 400);
+    </script>
+</body>
+</html>
